@@ -3,31 +3,28 @@ import reactLogo from "/react.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { addTodo, updateTodo } from "../redux/slices/todo"
+import { filterTodos } from "../components/FilterTodos"
 
 const Home = () => {
     const [text, setText] = useState("")
     const dispatch = useDispatch()
-    // const [todos, setTodos] = useState([])
+    const [todos, setTodos] = useState([])
 
-    const todos = useSelector((state) => state.todo)
-    // setTodos(res)
-    // const getTodos = () => {
-    // }
-    // useEffect(() => {
-    //     getTodos()
-    // }, [])
-
+    const res = useSelector((state) => state.todo)
+    useEffect(() => {
+        setTodos(filterTodos(res))
+    }, [res])
     const handleChange = (e) => { setText(e.target.value) }
     const handleAddTodo = (e) => {
         e.preventDefault()
         dispatch(addTodo({ title: text }))
         setText("")
     }
-    const handleCheckBox = (e) => {
-        dispatch(updateTodo({ id: e.id, completed: !e.completed }))
+    const handleCheckBox = (e, item) => {
+        dispatch(updateTodo({ id: item.id, completed: e.target.checked }))
     }
-    const handleActiveTodo = () => {
-        todos.filter(i => i.completed === true)
+    const handleFilter = (e) => {
+        setTodos(filterTodos(res, e))
     }
     return (
         <div className="container d-flex flex-column justify-content-center min-vh-100">
@@ -59,17 +56,17 @@ const Home = () => {
                     todos?.length > 0 ? <ul className="list-group bg-custom-black" data-bs-theme="dark">
                         {todos.map((item, index) => {
                             return <li className="list-group-item" key={index}>
-                                <input className="form-check-input me-1" type="checkbox" id="todo" onChange={() => handleCheckBox(item)} />
-                                <label className="form-check-label" htmlFor="todo">{item.title}</label>
+                                <input className="form-check-input me-1" type="checkbox" checked={item.completed} id={item.id} onChange={(e) => handleCheckBox(e, item)} />
+                                <label className="form-check-label" htmlFor={item.id}>{item.title}</label>
                             </li>
                         })}
                     </ul> : null
                 }
             </div>
             <div className="d-flex gap-3">
-                <button>Show All</button>
-                <button onClick={handleActiveTodo}>Active</button>
-                <button>Completed</button>
+                <button onClick={() => handleFilter('SHOW_ALL')}>Show All</button>
+                <button onClick={() => handleFilter('ACTIVE')}>Active</button>
+                <button onClick={() => handleFilter('COMPLETED')}>Completed</button>
             </div>
         </div>
     )
