@@ -79,7 +79,6 @@ button:focus-visible {
 #root {
 	max-width: 1280px;
 	margin: 0 auto;
-	padding: 2rem;
 }
 
 .logo {
@@ -93,6 +92,9 @@ button:focus-visible {
 }
 .logo.react:hover {
 	filter: drop-shadow(0 0 2em #61dafbaa);
+}
+.logo.redux:hover {
+	filter: drop-shadow(0 0 2em #8e5ae2);
 }
 
 @keyframes logo-spin {
@@ -112,4 +114,7 @@ button:focus-visible {
 
 .read-the-docs {
 	color: #888;
+}
+.home {
+	min-height: calc(100dvh - 56px);
 }
