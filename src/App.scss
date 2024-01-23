@@ -46,14 +46,17 @@ button {
 	cursor: pointer !important;
 	transition: border-color 0.25s !important;
 }
+button.active {
+	border-color: #646cff !important;
+}
 
 button:hover {
-	border-color: #646cff !important;
+	border-color: #9ba0fb !important;
 }
 
 button:focus,
 button:focus-visible {
-	outline: 4px auto -webkit-focus-ring-color;
+	outline: 4px auto #646cff;
 }
 .bg-custom-black {
 	background-color: $custom-black !important;

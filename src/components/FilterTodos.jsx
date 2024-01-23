@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux"
 
 export const filterTodos = (todos = [], filter = 'SHOW_ALL') => {
     switch (filter) {

@@ -7,24 +7,27 @@ import { filterTodos } from "../components/FilterTodos"
 
 const Home = () => {
     const [text, setText] = useState("")
-    const dispatch = useDispatch()
     const [todos, setTodos] = useState([])
+    const [filter, setFilter] = useState('SHOW_ALL')
 
+    const dispatch = useDispatch()
     const res = useSelector((state) => state.todo)
-    useEffect(() => {
-        setTodos(filterTodos(res))
-    }, [res])
-    const handleChange = (e) => { setText(e.target.value) }
+
+    useEffect(() => { setTodos(filterTodos(res, filter)) }, [res, filter])
+
+    const handleChange = (e) => setText(e.target.value)
+    const handleFilter = (e) => setFilter(e)
+
     const handleAddTodo = (e) => {
         e.preventDefault()
+        if (!text) {
+            return
+        }
         dispatch(addTodo({ title: text }))
         setText("")
     }
     const handleCheckBox = (e, item) => {
         dispatch(updateTodo({ id: item.id, completed: e.target.checked }))
-    }
-    const handleFilter = (e) => {
-        setTodos(filterTodos(res, e))
     }
     return (
         <div className="container d-flex flex-column justify-content-center min-vh-100">
@@ -64,9 +67,9 @@ const Home = () => {
                 }
             </div>
             <div className="d-flex gap-3">
-                <button onClick={() => handleFilter('SHOW_ALL')}>Show All</button>
-                <button onClick={() => handleFilter('ACTIVE')}>Active</button>
-                <button onClick={() => handleFilter('COMPLETED')}>Completed</button>
+                <button className={`${filter === 'SHOW_ALL' ? 'active' : ''}`} onClick={() => handleFilter('SHOW_ALL')}>Show All</button>
+                <button className={`${filter === 'ACTIVE' ? 'active' : ''}`} onClick={() => handleFilter('ACTIVE')}>Active</button>
+                <button className={`${filter === 'COMPLETED' ? 'active' : ''}`} onClick={() => handleFilter('COMPLETED')}>Completed</button>
             </div>
         </div>
     )
