@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { addTodo, updateTodo } from "../redux/slices/todo"
-import { filterTodos } from "../components/FilterTodos"
+import { addTodo, updateTodo } from "../../redux/slices/todo"
+import { filterTodos } from "../../components/FilterTodos"
 
 const Todo = () => {
     const [text, setText] = useState("")
@@ -28,7 +28,7 @@ const Todo = () => {
         dispatch(updateTodo({ id: item.id, completed: e.target.checked }))
     }
     return (
-        <div className="min-vh-100 container d-flex flex-column align-items-center ">
+        <div className="min-vh-100 container d-flex flex-column align-items-start ">
             <h1 className="text-center">Add Todo</h1>
             <div className="p-2 text-center" data-bs-theme="dark">
                 <form onSubmit={handleAddTodo}>

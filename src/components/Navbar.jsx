@@ -18,6 +18,9 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" aria-current="page" to="/cart">Cart</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" aria-current="page" to="/async">Async</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

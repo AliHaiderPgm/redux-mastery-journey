@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from '../../redux/slices/cart'
+import { addToCart, placeOrder } from '../../redux/slices/cart'
 import { updateProduct } from '../../redux/slices/product'
 const ShoppingCart = () => {
     const products = useSelector((state) => state.product)
@@ -11,8 +11,11 @@ const ShoppingCart = () => {
         dispatch(addToCart({ ...e, quantity: 1 }))
         dispatch(updateProduct({ id: e.id }))
     }
+    const handlePlaceOrder = () => {
+        dispatch(placeOrder())
+    }
     return (
-        <div className='d-flex flex-column gap-2'>
+        <div className='d-flex flex-column gap-2 min-vh-100'>
             <h1>Shopping Cart</h1>
             <div>
                 {
@@ -29,6 +32,9 @@ const ShoppingCart = () => {
                 {cartItems.length == 0 ? <p>Add items to cart...</p> : null}
                 {cartItems.map((item, index) => <p key={item.id}>{item.title} - ${item.price} x {item.quantity}</p>)}
                 <p>Total-${totalAmount}</p>
+            </div>
+            <div>
+                <button onClick={handlePlaceOrder}>Place Orders</button>
             </div>
         </div>
     )
