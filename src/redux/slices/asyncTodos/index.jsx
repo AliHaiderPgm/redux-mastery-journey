@@ -51,34 +51,62 @@ export const updateAsyncTodo = createAsyncThunk('asyncTodos/updateTodo',
     }
 )
 
+
 export const asyncTodoSlice = createSlice({
     name: 'asyncTodos',
-    initialState: [],
-    reducers: {},
+    initialState: {
+        data: [],
+        isLoading: false,
+        isError: false
+    },
+    reducers: {
+        reset: (state, action) => {
+            state.isError = false
+            state.isLoading = false
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(getTodosAsync.pending, (state, action) => {
-                // console.log('Loading todos...')
-                state.status = 'loading'
+                state.isLoading = true
             })
             .addCase(getTodosAsync.fulfilled, (state, action) => {
-                state.status = 'fulfilled'
-                return action.payload.todos
+                state.isLoading = false
+                state.data = action.payload.todos
+            })
+            .addCase(getTodosAsync.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.data = []
+            })
+            .addCase(addAsyncTodo.pending, (state, action) => {
+                state.isLoading = true
             })
             .addCase(addAsyncTodo.fulfilled, (state, action) => {
-                state.push(action.payload.todo)
+                state.isLoading = false
+                state.data.push(action.payload.todo)
+            })
+            .addCase(addAsyncTodo.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
             })
             .addCase(deleteAsyncTodo.pending, (state, action) => {
-                state.status = 'loading'
+                state.isLoading = true
             })
             .addCase(deleteAsyncTodo.fulfilled, (state, action) => {
-                return action.payload.todos
+                state.isLoading = false
+                state.data = action.payload.todos
+            })
+            .addCase(deleteAsyncTodo.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
             })
             .addCase(updateAsyncTodo.fulfilled, (state, action) => {
-                const index = state.findIndex(i => i.id === action.payload.todo.id)
-                state[index] = action.payload.todo
+                const index = state.data.findIndex(i => i.id === action.payload.todo.id)
+                state.data[index] = action.payload.todo
             })
     }
 })
 
+export const { reset } = asyncTodoSlice.actions
 export default asyncTodoSlice.reducer

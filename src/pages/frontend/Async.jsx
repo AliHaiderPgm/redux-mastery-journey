@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodosAsync, addAsyncTodo, deleteAsyncTodo, updateAsyncTodo } from "../../redux/slices/asyncTodos";
+import Spinner from "./Spinner";
 const Async = () => {
     const dispatch = useDispatch()
     const asyncTodos = useSelector(state => state.asyncTodos)
-    const asyncTodoStatus = useSelector(state => state.asyncTodos)
     const [text, setText] = useState("")
 
     useEffect(() => {
@@ -14,6 +14,7 @@ const Async = () => {
     const handleAddTodo = (e) => {
         e.preventDefault()
         dispatch(addAsyncTodo({ title: text }))
+        setText("")
     }
     const handleCheckBox = (e, item) => {
         dispatch(updateAsyncTodo({ id: item.id, completed: e.target.checked }))
@@ -22,7 +23,7 @@ const Async = () => {
         dispatch(deleteAsyncTodo({ id }))
     }
     return (
-        <div>
+        <div className="min-vh-100">
             <div>
                 <h1>Add Async Todo</h1>
                 <div className="p-2 text-center" data-bs-theme="dark">
@@ -33,18 +34,20 @@ const Async = () => {
                 </div>
             </div>
             <h3>Async Todos</h3>
-            {
-                asyncTodoStatus === 'loading' ? <p>Loading...</p> :
-                    asyncTodos.map((state, index) => {
-                        return <li className="list-group-item my-2 d-flex gap-3 align-items-center" key={state.id}>
-                            <span>
-                                <input className="form-check-input me-1" type="checkbox" checked={state.completed} id={state.id} onChange={(e) => handleCheckBox(e, state)} />
-                                <label className="form-check-label" htmlFor={state.id}>{state.title}</label>
-                            </span>
-                            <button className="bg-danger" onClick={() => handleDelete(state.id)}>Delete</button>
-                        </li>
-                    })
-            }
+            <div>
+                {
+                    asyncTodos.isLoading ? <Spinner /> :
+                        asyncTodos.data.map((state, index) => {
+                            return <li className="list-group-item my-2 d-flex gap-3 align-items-center" key={state.id}>
+                                <span>
+                                    <input className="form-check-input me-1" type="checkbox" checked={state.completed} id={state.id} onChange={(e) => handleCheckBox(e, state)} />
+                                    <label className="form-check-label" htmlFor={state.id}>{state.title}</label>
+                                </span>
+                                <button className="bg-danger" onClick={() => handleDelete(state.id)}>Delete</button>
+                            </li>
+                        })
+                }
+            </div>
         </div>
     )
 }
