@@ -1,0 +1,13 @@
+.preLoader {
+	position: fixed;
+	top: 56px;
+	left: 0;
+	right: 0;
+	display: flex;
+	overflow: hidden;
+	.bar {
+		background-color: antiquewhite;
+		height: calc(100dvh - 56px);
+		width: 10%;
+	}
+}

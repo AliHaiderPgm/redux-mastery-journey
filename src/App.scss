@@ -1,5 +1,7 @@
 @import "bootstrap/scss/bootstrap";
 @import "./scss/Spinner.scss";
+@import "./scss/GSAP.scss";
+@import "./scss/preLoader.scss";
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
@@ -97,6 +99,9 @@ button:focus-visible {
 .logo.redux:hover {
 	filter: drop-shadow(0 0 2em #8e5ae2);
 }
+.logo.gsap:hover {
+	filter: drop-shadow(0 0 2em #5ae263);
+}
 
 @keyframes logo-spin {
 	from {
@@ -107,11 +112,11 @@ button:focus-visible {
 	}
 }
 
-@media (prefers-reduced-motion: no-preference) {
-	a:nth-of-type(2) .logo {
-		animation: logo-spin infinite 20s linear;
-	}
-}
+// @media (prefers-reduced-motion: no-preference) {
+// 	a:nth-of-type(2) .logo {
+// 		animation: logo-spin infinite 20s linear;
+// 	}
+// }
 
 .read-the-docs {
 	color: #888;

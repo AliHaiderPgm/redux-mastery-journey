@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar"
 import Todo from "./Todo"
 import ShoppingCart from "./ShoppingCart"
 import Async from "./Async"
+import GSAP from "./GSAP"
 
 const index = () => {
     return (
@@ -14,6 +15,7 @@ const index = () => {
                 <Route path="/todos" index element={<Todo />} />
                 <Route path="/cart" index element={<ShoppingCart />} />
                 <Route path="/async" index element={<Async />} />
+                <Route path="/gsap" index element={<GSAP />} />
                 <Route path="*" index element={<h1 className="text-center">Page not found.😶‍🌫️</h1>} />
             </Routes>
         </>
