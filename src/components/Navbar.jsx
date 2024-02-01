@@ -27,6 +27,9 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" aria-current="page" to="/scroll">Scroll</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" aria-current="page" to="/parallax">Parallax</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

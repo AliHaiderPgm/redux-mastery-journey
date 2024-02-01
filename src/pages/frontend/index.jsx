@@ -6,6 +6,7 @@ import ShoppingCart from "./ShoppingCart"
 import Async from "./Async"
 import GSAP from "./GSAP"
 import ScrollTrigger from "./ScrollTrigger"
+import Parallax from "./Parallax"
 
 const index = () => {
     return (
@@ -18,6 +19,7 @@ const index = () => {
                 <Route path="/async" index element={<Async />} />
                 <Route path="/gsap" index element={<GSAP />} />
                 <Route path="/scroll" index element={<ScrollTrigger />} />
+                <Route path="/parallax" index element={<Parallax />} />
                 <Route path="*" index element={<h1 className="text-center">Page not found.😶‍🌫️</h1>} />
             </Routes>
         </>
