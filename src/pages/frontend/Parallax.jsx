@@ -12,9 +12,8 @@ const Parallax = () => {
         gsap.to('.img', { y: 10, ease: 'none', scrollTrigger: { trigger: '.img', scrub: true } })
         gsap.to('.text', { y: -2500, ease: 'none', scrollTrigger: { trigger: '.text', scrub: 2, end: "bottom 90%", } })
         // Example 2
-        const tl = gsap.timeline({ scrollTrigger: { scrub: true, } })
-        tl.to('.sky', { y: -700, ease: 'none', scrollTrigger: { trigger: '.sky', } })
-        tl.to('.mountain', { y: -400, ease: 'none', scrollTrigger: { trigger: '.mountain', } })
+        gsap.to('.sky', { y: -700, ease: 'none', scrollTrigger: { trigger: '.sky', scrub: true, start: "top 60", } })
+        gsap.to('.mountain', { y: -400, ease: 'none', scrollTrigger: { trigger: '.mountain', scrub: true, start: "top 410", markers: true } })
     })
     return (
         <div>
